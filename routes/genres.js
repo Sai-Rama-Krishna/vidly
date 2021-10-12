@@ -53,15 +53,14 @@ router.put('/:id', async (req , res ) => {
     //check id person 
     try{
         
-        const genre =  await Genres.findByIdAndUpdate( req.params.id, {name:req.body.name} , { new:true});
+        const genre =  await Genres.findByIdAndUpdate( {_id:req.params.id}, {name:req.body.name});
         if (!genre) return res.status(404).send('not avalabile');
-        res.send(genre);
+        await  res.send(genre);
     }
     catch (err) {
      console.log(err)
     }
 
-// update
 
 });
 
@@ -79,12 +78,18 @@ function validatePersons(yyy){
 router.delete('/:id', async (req,res) => {
 
     // check id
-    const genre =  await Genres.findByIdAndRemove( req.params.id)
-    if (!genre) return  res.status(404).send('not avalabile');
+    try{
+        // const genre = await Genres.deleteOne( { _id:req.params.id}) not working
+        const genre =  await Genres.findByIdAndRemove( req.params.id)
+        if (!genre) return  res.status(404).send('not avalabile');
 
+         await res.send(genre);
+    }
+catch (err) { 
+    console.log(err);
+}
 //delete
   
-res.send(genre);
 
 })
 

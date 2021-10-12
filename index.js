@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const genres = require('./routes/genres')
+const customers = require('./routes/customers')
 const express = require('express')
 const app = express();
 
@@ -13,6 +14,7 @@ useNewUrlParser: true,
 .catch( err => console.log( 'not connected to Db', err))
 
 app.use(express.json());
-app.use('/api/genres',genres)
+app.use('/api/genres',genres);
+app.use('/api/customers',customers)
 
 app.listen(3000)
