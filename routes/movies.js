@@ -46,7 +46,7 @@ router.post('/', async (req , res ) => {
 
         }
         console.log(obj);
-         let movie =   new Movies(obj)
+         const  movie =   new Movies(obj)
            await movie.save();
           res.send(movie)
     }

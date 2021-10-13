@@ -2,7 +2,7 @@ const Joi = require('joi');
 const boolean = require('joi/lib/types/boolean');
 const mongoose = require('mongoose');
 
-const rental = mongoose.model( 'rental', new mongooseSchema({
+const Rental = mongoose.model( 'Rental', new mongoose.Schema({
  customer: { type: new mongoose.Schema({
      name:{
         type:String,
@@ -26,7 +26,7 @@ const rental = mongoose.model( 'rental', new mongooseSchema({
 },
 
 movie:{ 
-    type: new mongooseSchema( { 
+    type: new mongoose.Schema( { 
 
         title: {
             type:String,
@@ -49,12 +49,12 @@ movie:{
 
 function validaterental(rental) {
     const schema = {
-        customerId: Joi.string().required(),
-        movieId: Joi.string().required()
+        customerId: Joi.objectId().required(),
+        movieId: Joi.objectId().required()
       };
     
       return Joi.validate(rental, schema);
 }
 
-exports.rental= rental;
+exports.Rental= Rental;
 exports.validate = validaterental
