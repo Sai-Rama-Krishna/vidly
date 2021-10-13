@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sai-Rama-Krishna/vidly#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dcrypt": "^0.0.2",
     "express": "^4.16.2",
     "joi": "^13.7.0",
