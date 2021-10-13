@@ -1,0 +1,116 @@
+const express = require('express')
+const mongoose = require('mongoose')
+const router = express.Router();
+const {Genres} = require('../models/genres')
+const { Movies , validate} = require('../models/movies')
+
+
+
+
+
+router.get('/',  async ( req, res) => {
+   const movie = await Movies.find().sort('name')
+    res.send(movie);
+});
+
+router.get('/:id', async ( req, res) => {
+    try{
+        const movie = await Movies.findById(req.params.id)
+        if (!movie) return res.status(404).send('not avalabile');
+        res.send(movie);
+
+    }
+    catch (err){
+        console.log(err)
+    }
+});
+
+//post 
+router.post('/', async (req , res ) => { 
+
+    try{
+        
+        const { error} = validate(req.body)
+        if(error) return res.status(400).send(error.details[0].message)
+
+        const genre = await Genres.findById(req.body.genreId);
+        if(!genre) return res.status(400).send('invalid genre')
+        var obj={
+            title:req.body.title,
+             genre:{
+                 _id:genre._id,
+                 name:genre.name
+                },
+                stock: req.body.stock,
+                rent: req.body.rent,
+
+        }
+        console.log(obj);
+         let movie =   new Movies(obj)
+           await movie.save();
+          res.send(movie)
+    }
+    catch (err) {
+        console.log(err)
+    }
+});
+
+// put 
+router.put('/:id', async (req , res ) => {
+    
+    const { error} = validate(req.body)
+    if(error) return res.status(400).send(error.details[0].message)
+    
+    const genre = await Genres.findById(req.body.genreId);
+        if(!genre) return res.status(400).send('invalid genre')
+    
+       obj1={
+        title:req.body.title,
+        genre: {
+            _id: genre._id,
+            name: genre.name
+          },
+          stock: req.body.stock,
+          rent: req.body.rent
+       }
+
+    try{
+        
+        const movie =  await Movies.findByIdAndUpdate(req.params.id, {
+            obj1}, { new:true});
+            // console.log( " put" , obj1)
+        if (!movie) return res.status(404).send('not avalabile');
+        await  res.send(movie);
+    }
+    catch (err) {
+     console.log(err)
+    }
+
+
+});
+
+
+
+
+
+router.delete('/:id', async (req,res) => {
+
+    // check id
+    try{
+        // const genre = await Genres.deleteOne( { _id:req.params.id}) not working
+        const movie =  await Movies.findByIdAndRemove( req.params.id)
+        if (!movie) return  res.status(404).send('not avalabile');
+
+         await res.send(movie);
+    }
+catch (err) { 
+    console.log(err);
+}
+//delete
+  
+
+})
+
+module.exports = router;
+
+
