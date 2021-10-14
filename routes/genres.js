@@ -3,21 +3,19 @@ const auth = require("../middleware/auth");
 const express = require("express");
 const mongoose = require("mongoose");
 const admin = require("../middleware/admin");
+
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  throw new Error("could not get the genres");
   const genres = await Genres.find().sort("name");
   res.send(genres);
 });
 
 router.get("/:id", async (req, res) => {
-  try {
-    const genre = await Genres.findById(req.params.id);
-    if (!genre) return res.status(404).send("not avalabile");
-    res.send(genre);
-  } catch (err) {
-    console.log(err);
-  }
+  const genre = await Genres.findById(req.params.id);
+  if (!genre) return res.status(404).send("not avalabile");
+  res.send(genre);
 });
 
 //post

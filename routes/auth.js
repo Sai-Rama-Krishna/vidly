@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const express = require("express");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -23,7 +24,9 @@ router.post("/", async (req, res) => {
     if (!validpassword)
       return res.status(400).send("invalid email or password");
 
-    const token = user.genarateAuthToken();
+    const token = user.generateAuthToken();
+
+    // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
 
     res.send(token);
   } catch (err) {
