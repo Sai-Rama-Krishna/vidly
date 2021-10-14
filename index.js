@@ -4,12 +4,18 @@ Joi.objectId = require("joi-objectid")(Joi);
 const users = require("./routes/user");
 const genres = require("./routes/genres");
 const customers = require("./routes/customers");
+
 const movies = require("./routes/movies");
 const rentals = require("./routes/rentals");
 const auth = require("./routes/auth");
 const express = require("express");
 const app = express();
+const config = require("config");
 
+if (!config.get("jwtPrivateKey")) {
+  console.error("FATAL ERROR: jwrPrivateKey is not defined");
+  process.exit(1);
+}
 mongoose
   .connect(
     "mongodb+srv://rama:rama@rk.ngyuh.mongodb.net/vidly?retryWrites=true&w=majority",

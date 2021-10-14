@@ -1,4 +1,6 @@
 const { users } = require("../models/user");
+
+const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const express = require("express");
@@ -8,12 +10,25 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(404).send(error.details[0].message);
+  try {
+    let user = await users.findOne({ email: req.body.email });
+    // console.log(user);
+    if (!user) return res.status(400).send("invalid email or password");
 
-  let user = await users.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("invalid email or password");
+    const validpassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
-  const validpassword = await dcrypt.compare(req.body.password, user.password);
-  if (!validpassword) res.send(true);
+    if (!validpassword)
+      return res.status(400).send("invalid email or password");
+
+    const token = user.genarateAuthToken();
+
+    res.send(token);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 function validate(req) {
