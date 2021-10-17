@@ -14,8 +14,6 @@ module.exports = function () {
   winston.add(winston.transports.File, { filename: "logfile.log" });
   // winston.add(winston.transports.MongoDB, {
   //   db: "mongodb+srv://rama:rama@rk.ngyuh.mongodb.net/vidly?retryWrites=true&w=majority",
+  // level:'info'
   // });
-
-  const p = Promise.reject(new Error("something failed miserable"));
-  p.then(() => console.log(" done"));
 };
