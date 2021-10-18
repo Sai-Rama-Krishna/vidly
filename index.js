@@ -11,5 +11,5 @@ require("./startup/config")();
 require("./startup/validation")();
 require("./startup/prod")(app);
 
-const port = 3000 || config.get("port");
+const port = process.env.PORT || 3005;
 app.listen(port, () => winston.info(`Listening on port ${port}...`));
