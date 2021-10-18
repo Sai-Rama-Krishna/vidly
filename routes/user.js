@@ -22,9 +22,11 @@ router.post("/", async (req, res) => {
   const token = user.generateAuthToken();
   // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
 
-  res
-    .header("x-auth-token", token)
-    .send(_.pick(user, ["_id", "name", "email"]));
+  // res
+  //   .header("x-auth-token", token)
+  //   .send(_.pick(user, ["_id", "name", "email"]));
+
+  res.send(" register sucess");
 });
 
 module.exports = router;
