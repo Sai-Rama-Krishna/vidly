@@ -21,11 +21,11 @@ router.post("/", async (req, res) => {
     email: req.body.email,
     password: password,
   };
-  var newusr = await new users(obj);
-  await newusr.save();
 
   const token = user.generateAuthToken();
-  const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+  // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+  var newuser = await new users(obj);
+  await newuser.save();
 
   res
     .header("x-auth-token", token)
