@@ -15,7 +15,6 @@ const Rental = mongoose.model(
           required: true,
         },
         gold: {
-          required: true,
           default: false,
           type: Boolean,
         },
