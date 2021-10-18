@@ -12,7 +12,7 @@ const movieSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
-  genre: {
+  genreId: {
     type: genreSchema,
     required: true,
   },
