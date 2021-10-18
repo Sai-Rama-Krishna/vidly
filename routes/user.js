@@ -12,21 +12,21 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ email: req.body.email });
+
   if (user) return res.status(400).send("User already registerd");
 
   const salt = await bcrypt.genSalt(10);
   var password = await bcrypt.hash(req.body.password, salt);
-  var obj = {
+
+  // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+
+  user = await new users({
     name: req.body.name,
     email: req.body.email,
     password: password,
-  };
-
+  });
+  await user.save();
   const token = user.generateAuthToken();
-  // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
-  var newuser = await new users(obj);
-  await newuser.save();
-
   res
     .header("x-auth-token", token)
     .send(_.pick(user, ["_id", "name", "email"]));
