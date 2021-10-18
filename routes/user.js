@@ -9,17 +9,22 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(404).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ email: req.body.email });
-  if (user) return res.status(404).send("User already registerd");
+  if (user) return res.status(400).send("User already registerd");
 
-  user = new users(_.pick(req.body, ["name", "email", "password"]));
   const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-  await user.save();
+  var password = await bcrypt.hash(req.body.password, salt);
+  var obj = {
+    name: req.body.name,
+    email: req.body.email,
+    password: password,
+  };
+  var newusr = await new users(obj);
+  await newusr.save();
 
-  const token = user.generateAuthToken();
+  // const token = user.generateAuthToken();
   // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
 
   // res
