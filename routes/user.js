@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  // const { error } = validate(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ email: req.body.email });
   if (user) return res.status(400).send("User already registerd");
@@ -24,14 +24,14 @@ router.post("/", async (req, res) => {
   var newusr = await new users(obj);
   await newusr.save();
 
-  // const token = user.generateAuthToken();
-  // const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+  const token = user.generateAuthToken();
+  const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
 
-  // res
-  //   .header("x-auth-token", token)
-  //   .send(_.pick(user, ["_id", "name", "email"]));
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["_id", "name", "email"]));
 
-  res.send(" register sucess");
+  // res.send(" register sucess");
 });
 
 module.exports = router;

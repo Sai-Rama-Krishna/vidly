@@ -12,6 +12,6 @@ module.exports = function () {
         useUnifiedTopology: true,
       }
     )
-    .then(() => winston.info(" Connected to Db listing 3000"))
+    .then(() => winston.info(" Connected to Db "))
     .catch((err) => console.log("not connected to Db", err));
 };
