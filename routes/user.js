@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   await user.save();
   const token = user.generateAuthToken();
   res
-    .header("Access-Control-Allow-Origin", "*")
+    // .header("Access-Control-Allow-Origin", "*")
     .header("x-auth-token", token)
     .send(_.pick(user, ["_id", "name", "email"]));
 
