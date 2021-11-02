@@ -41,8 +41,8 @@ router.post('/', async (req , res ) => {
                  _id:genre._id,
                  name:genre.name
                 },
-                stock: req.body.stock,
-                rent: req.body.rent,
+                numberInStock: req.body.stock,
+                rdailyRentalRatent: req.body.rent,
 
         }
         console.log(obj);
@@ -70,8 +70,8 @@ router.put('/:id', async (req , res ) => {
             _id: genre._id,
             name: genre.name
           },
-          stock: req.body.stock,
-          rent: req.body.rent
+          numberInStock: req.body.stock,
+          dailyRentalRate: req.body.rent
        }
 
     try{
