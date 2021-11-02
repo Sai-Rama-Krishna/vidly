@@ -8,7 +8,7 @@ const movieSchema = new mongoose.Schema({
   title: {
     type: String,
     minlength: 2,
-    maxlength: 10,
+    maxlength: 100,
     trim: true,
     required: true,
   },
@@ -26,7 +26,7 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     rquired: true,
     min: 0,
-    max: 10,
+    max: 100,
   },
 });
 
