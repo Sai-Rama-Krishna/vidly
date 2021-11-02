@@ -52,10 +52,10 @@ router.put("/:id", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
+  const genre = await Genres.findById(req.body.genreId);
   if (!genre) return res.status(400).send("Invalid genre.");
 
-  const movie = await Movie.findByIdAndUpdate(
+  const movie = await Movies.findByIdAndUpdate(
     req.params.id,
     {
       title: req.body.title,
