@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
     } catch (err) {
       console.log(err);
     }
-  }, 4000);
+  }, 2000);
 });
 
 // put
