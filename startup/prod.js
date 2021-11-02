@@ -7,7 +7,10 @@ module.exports = function (app) {
   app.use(compression());
   app.use(
     cors({
-      origin: "*",
+      // origin: "*",
+      "Access-Control-Allow-Orgin":"*",
+      "Acess-Control-Allow-Methods":"GET,POST,DELETE,OPTIONS",
+      "Acess-Control-Allow-Headers":"Content-Type,Access-Control-Allow-Headers,x-test"
     })
   );
   // app.use((req, res, next) => {
