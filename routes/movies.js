@@ -67,13 +67,9 @@ router.put("/:id", async (req, res) => {
   };
 
   try {
-    const movie = await Movies.findByIdAndUpdate(
-      req.params.id,
-      {
-        obj1,
-      },
-      { new: true }
-    );
+    const movie = await Movies.findByIdAndUpdate(req.params.id, {
+      obj1,
+    });
     // console.log( " put" , obj1)
     if (!movie) return res.status(404).send("not avalabile");
     await res.send(movie);
