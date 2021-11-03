@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
   res
     // .header("Access-Control-Allow-Origin", "*")
     .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
     .send(_.pick(user, ["_id", "name", "email"]));
 
   // res.send(" register sucess");
