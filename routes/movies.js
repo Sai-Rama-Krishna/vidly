@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
 
 //post
 
-router.post("/", async (req, res) => {
+router.post("/", [auth], async (req, res) => {
   setTimeout(async () => {
     try {
       const { error } = validate(req.body);
