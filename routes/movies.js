@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const auth = require("../middleware/auth");
 const router = express.Router();
 const { Genres } = require("../models/genres");
 const { Movies, validate } = require("../models/movies");
@@ -22,30 +22,28 @@ router.get("/:id", async (req, res) => {
 //post
 
 router.post("/", [auth], async (req, res) => {
-  setTimeout(async () => {
-    try {
-      const { error } = validate(req.body);
-      if (error) return res.status(400).send(error.details[0].message);
+  try {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-      const genre = await Genres.findById(req.body.genreId);
-      if (!genre) return res.status(400).send("invalid genre");
-      var obj = {
-        title: req.body.title,
-        genre: {
-          _id: genre._id,
-          name: genre.name,
-        },
-        numberInStock: req.body.numberInStock,
-        dailyRentalRate: req.body.dailyRentalRate,
-      };
+    const genre = await Genres.findById(req.body.genreId);
+    if (!genre) return res.status(400).send("invalid genre");
+    var obj = {
+      title: req.body.title,
+      genre: {
+        _id: genre._id,
+        name: genre.name,
+      },
+      numberInStock: req.body.numberInStock,
+      dailyRentalRate: req.body.dailyRentalRate,
+    };
 
-      const movie = new Movies(obj);
-      await movie.save();
-      res.send(movie);
-    } catch (err) {
-      console.log(err);
-    }
-  }, 4000);
+    const movie = new Movies(obj);
+    await movie.save();
+    res.send(movie);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.put("/:id", async (req, res) => {
