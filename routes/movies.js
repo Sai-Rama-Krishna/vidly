@@ -1,4 +1,5 @@
 const express = require("express");
+const admin = require("../middleware/admin");
 const auth = require("../middleware/auth");
 const router = express.Router();
 const { Genres } = require("../models/genres");
@@ -103,7 +104,7 @@ router.put("/:id", auth, async (req, res) => {
 //   }
 // });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",[auth,admin], async (req, res) => {
   // check id
   try {
     // const genre = await Genres.deleteOne( { _id:req.params.id}) not working
