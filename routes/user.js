@@ -7,6 +7,11 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  const users = await users.find().sort("name");
+  res.send(customer);
+});
+
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
