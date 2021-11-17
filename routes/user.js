@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const users = await users.find().sort("name");
-  res.send(customer);
+  res.send(users);
 });
 
 router.post("/", async (req, res) => {
