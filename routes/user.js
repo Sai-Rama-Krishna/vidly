@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const users = await users.find().sort("name");
-  res.send(users);
+  const user = await users.find().sort("name");
+  res.send(user);
 });
 
 router.post("/", async (req, res) => {
