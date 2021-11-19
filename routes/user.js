@@ -17,10 +17,9 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await users.findOne({ email: req.body.email });
+  let name = await users.findOne({ name: req.body.name });
 
   if (user) return res.status(400).send("User already registerd");
-
-  let name = await users.findOne({ email: req.body.name });
 
   if (name) return res.status(400).send("Name already taken");
 
