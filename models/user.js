@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 20,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -22,7 +23,6 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 200,
     required: true,
-    unique: true,
   },
   isAdmin: Boolean,
   default: false,
