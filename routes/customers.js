@@ -60,6 +60,7 @@ catch (err) {
 })
 
 
+
 router.put('/:id', async (req , res ) => {
     
     const { error} = validate(req.body)
