@@ -1,5 +1,3 @@
-
-
 const Joi = require('joi')
 const express = require('express');
 const { customers , validate} = require('../models/customers')
