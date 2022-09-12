@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const movie = await Movies.findById(req.params.id);
+    const movie = await Movies.findOne(req.params.id);
     if (!movie) return res.status(404).send("not avalabile");
     res.send(movie);
   } catch (err) {
@@ -104,7 +104,7 @@ router.put("/:id", auth, async (req, res) => {
 //   }
 // });
 
-router.delete("/:id",[auth,admin], async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   // check id
   try {
     // const genre = await Genres.deleteOne( { _id:req.params.id}) not working
