@@ -12,7 +12,8 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const movie = await Movies.findOne(req.params.id);
+    const movie = await Movies.findById(req.params.id);
+
     if (!movie) return res.status(404).send("not avalabile");
     res.send(movie);
   } catch (err) {
