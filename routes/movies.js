@@ -14,7 +14,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    console.log('id---',req.params.id);
+    console.log("id---", req.params.id);
+    const id = req.params.id;
+    if (id.length < 24)
+      return res.status(400).send("Id must be 24 characters long");
     const movie = await Movies.findOne({ _id: new ObjectID(req.params.id) });
 
     if (!movie) return res.status(404).send("not avalabile");
