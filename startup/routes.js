@@ -9,10 +9,10 @@ const express = require("express");
 
 
 module.exports = function (app) {
-const router = express.Router();
-  router.get("/", async (req, res) => {
-  return res.render("App Running");
-});
+
+  app.get('/', async (req, res) => {
+    return res.status(200).send('Hello Welcome to Vidly 🚀 ');
+  });
 
   app.use(express.json());
   app.use("/api/genres", genres);
