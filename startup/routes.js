@@ -7,7 +7,13 @@ const customers = require("../routes/customers");
 const error = require("../middleware/error");
 const express = require("express");
 
+
 module.exports = function (app) {
+const router = express.Router();
+  router.get("/", async (req, res) => {
+  return res.status(200).send("App Running");
+});
+
   app.use(express.json());
   app.use("/api/genres", genres);
   app.use("/api/customers", customers);
