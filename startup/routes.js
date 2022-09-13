@@ -11,7 +11,7 @@ const express = require("express");
 module.exports = function (app) {
 const router = express.Router();
   router.get("/", async (req, res) => {
-  return res.status(200).send("App Running");
+  return res.send("App Running");
 });
 
   app.use(express.json());
