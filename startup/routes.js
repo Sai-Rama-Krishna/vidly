@@ -9,7 +9,7 @@ const express = require("express");
 
 
 module.exports = function (app) {
-const router = express.Router();
+
   router.get("/", async (req, res) => {
   return res.send("App Running");
 });
