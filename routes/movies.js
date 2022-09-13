@@ -31,7 +31,7 @@ router.post("/", [auth], async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const genre = await Genres.find({ _id: new ObjectID(req.body.genreId) });
+    const genre = await Genres.findOne({ _id: new ObjectID(req.body.genreId) });
     if (!genre) return res.status(400).send("invalid genre");
     var obj = {
       title: req.body.title,
@@ -55,7 +55,7 @@ router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genres.find({ _id: new ObjectID(req.body.genreId) });
+  const genre = await Genres.findOne({ _id: new ObjectID(req.body.genreId) });
   if (!genre) return res.status(400).send("Invalid genre.");
 
   const movie = await Movies.findByIdAndUpdate(
