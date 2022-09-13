@@ -1,10 +1,12 @@
+/** @format */
+
 const express = require("express");
 const admin = require("../middleware/admin");
 const auth = require("../middleware/auth");
 const router = express.Router();
 const { Genres } = require("../models/genres");
 const { Movies, validate } = require("../models/movies");
-
+const { ObjectID } = require("mongodb");
 router.get("/", async (req, res) => {
   const movie = await Movies.find().sort("name");
   res.send(movie);
@@ -12,7 +14,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const movie = await Movies.findById(req.params.id);
+    const movie = await Movies.find({ _id: new ObjectID(req.params.id) });
 
     if (!movie) return res.status(404).send("not avalabile");
     res.send(movie);
@@ -28,7 +30,7 @@ router.post("/", [auth], async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const genre = await Genres.findById(req.body.genreId);
+    const genre = await Genres.find({ _id: new ObjectID(req.body.genreId) });
     if (!genre) return res.status(400).send("invalid genre");
     var obj = {
       title: req.body.title,
@@ -52,7 +54,7 @@ router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genres.findById(req.body.genreId);
+  const genre = await Genres.find({ _id: new ObjectID(req.body.genreId) });
   if (!genre) return res.status(400).send("Invalid genre.");
 
   const movie = await Movies.findByIdAndUpdate(
