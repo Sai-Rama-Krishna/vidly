@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
-  "PORT":""
+  "jwtPrivateKey": "vidly_jwtPrivateKey",
+  "PORT": ""
 }

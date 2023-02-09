@@ -1,6 +1,6 @@
-const config = require('config')
+// const config = require('config')
 
 module.exports = function (req, res, next) {
-  if (!req.user.isAdmin) return res.status(403).send("Access denied");
+  if (!req.user.isAdmin) return res.status(403).send('Access denied');
   next();
 };
